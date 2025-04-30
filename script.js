@@ -1,1 +1,29 @@
-//your JS code here. If required.
+document.getElementById("voteForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const age = parseInt(document.getElementById("age").value.trim(), 10);
+
+      if (!name || isNaN(age)) {
+        alert("Please enter valid details.");
+        return;
+      }
+
+      const checkEligibility = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (age > 18) {
+            resolve(name);
+          } else {
+            reject(name);
+          }
+        }, 4000);
+      });
+
+      checkEligibility
+        .then((name) => {
+          alert(`Welcome, ${name}. You can vote.`);
+        })
+        .catch((name) => {
+          alert(`Oh sorry ${name}. You aren't old enough.`);
+        });
+    });
